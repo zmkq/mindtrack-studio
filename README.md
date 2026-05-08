@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="MindTrack Studio Hero" style="border-radius: 12px; width: 100%; object-fit: cover; height: 350px; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);">
+  <img src="https://github.com/user-attachments/assets/70687615-c797-47e9-a041-02203155ac04" alt="MindTrack Studio Hero" style="border-radius: 12px; width: 100%; object-fit: cover; height: 350px; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);">
 </div>
 
 <br>
@@ -10,6 +10,7 @@
   <em>A state-of-the-art, lightweight psychology content platform.</em><br>
   Built with precision, elegant architecture, and a museum-quality aesthetic.
 </p>
+<img width="1902" height="908" alt="image" src="https://github.com/user-attachments/assets/18177602-224a-487d-a42e-84f9a3f5649d" />
 
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
@@ -105,7 +106,7 @@ MindTrack is constantly evolving. The roadmap includes:
 <br>
 
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" alt="MindTrack Studio Footer" style="border-radius: 8px; width: 100%; object-fit: cover; height: 150px; opacity: 0.8; margin-bottom: 20px;">
+  <img src="https://github.com/user-attachments/assets/9e5390c4-5bbc-4650-9901-25d4bb056032" alt="MindTrack Studio Footer" style="border-radius: 8px; width: 100%; object-fit: cover; opacity: 0.8;">
   <p style="color: #a1a1aa; font-size: 0.9rem;">
     Designed and built with passion.<br>
     © 2026 MO.
