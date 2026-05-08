@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Award, BookOpen, Calendar, Check, Clock, Flame, Heart, Leaf, Star, Target, TrendingUp, Trophy, Zap } from "lucide-react"
+import { ArrowRight, Award, BookOpen, Calendar, Check, Clock, Flame, Heart, Leaf, Star, Target, TrendingUp, Trophy, Zap , type LucideIcon } from "lucide-react"
 import { UserShell } from "@/components/user-shell"
 
 export function UserProgressPage() {
@@ -18,14 +18,14 @@ export function UserProgressPage() {
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {[
+        {([
           ["Total Practices", "87", "Since you joined", BookOpen, "#e65e48"],
           ["Current Streak", "7 days", "Personal best!", Flame, "#e65e48"],
           ["Total Minutes", "14.2 hrs", "Of mindful practice", Clock, "#d4874b"],
           ["Mind Score", "82 / 100", "+12 since starting", Star, "#a8c764"],
-        ].map(([label, value, sub, Icon, color], i) => (
-          <div key={label as string} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
-            <Icon className="size-7" style={{ color: color as string }} />
+        ] as Array<[string, string, string, LucideIcon, string]>).map(([label, value, sub, Icon, color], i) => (
+          <div key={label} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
+            <Icon className="size-7" style={{ color }} />
             <p className="mt-5 text-sm text-[#aaa296]">{label}</p>
             <p className="metric-value mt-3 font-[Georgia] text-4xl text-[#f1e6d6]">{value}</p>
             <p className="mt-3 text-xs text-[#9ab65d]">{sub}</p>

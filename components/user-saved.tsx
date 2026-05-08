@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, BookOpen, Cloud, Heart, Leaf, Moon, Play, Sparkles, Star, Sprout, SunMedium, Target, Timer, Trash2 } from "lucide-react"
+import { ArrowRight, BookOpen, Cloud, Heart, Leaf, Moon, Play, Sparkles, Star, Sprout, SunMedium, Target, Timer, Trash2 , type LucideIcon } from "lucide-react"
 import { UserShell } from "@/components/user-shell"
 
 const saved = [
@@ -28,13 +28,13 @@ export function UserSavedPage() {
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
-        {[
+        {([
           ["Saved Items", String(saved.length), "Across all categories", Star, "#d4874b"],
           ["Most Practiced", "Breathing Reset", "12 completions", Heart, "#e65e48"],
           ["Last Practiced", "2 hours ago", "Evening Wind-Down", Timer, "#a8c764"],
-        ].map(([label, value, sub, Icon, color], i) => (
-          <div key={label as string} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
-            <Icon className="size-7" style={{ color: color as string }} />
+        ] as Array<[string, string, string, LucideIcon, string]>).map(([label, value, sub, Icon, color], i) => (
+          <div key={label} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
+            <Icon className="size-7" style={{ color }} />
             <p className="mt-5 text-sm text-[#aaa296]">{label}</p>
             <p className="metric-value mt-3 font-[Georgia] text-3xl text-[#f1e6d6]">{value}</p>
             <p className="mt-3 text-xs text-[#9ab65d]">{sub}</p>

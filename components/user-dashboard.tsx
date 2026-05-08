@@ -19,6 +19,7 @@ import {
   Timer,
   TrendingUp,
   Zap,
+  type LucideIcon,
 } from "lucide-react"
 
 import { UserShell } from "@/components/user-shell"
@@ -59,14 +60,16 @@ export function UserDashboard() {
 
       {/* ═══ DAILY STATS ═══ */}
       <div className="mt-6 grid gap-4 md:grid-cols-4">
-        {[
-          ["Practice Streak", "7 days", "Personal best!", Flame, "#e65e48"],
-          ["Completed Today", "2 / 3", "1 remaining", Check, "#a8c764"],
-          ["Weekly Minutes", "48 min", "+12 min vs last week", Timer, "#d4874b"],
-          ["Mind Score", "82", "+4 this week", Brain, "#a8c764"],
-        ].map(([label, value, sub, Icon, color], index) => (
-          <div key={label as string} className={`glass-card hover-lift anim-up delay-${index + 1} rounded-md p-6`}>
-            <Icon className="size-7 transition-transform duration-500 hover:scale-110" style={{ color: color as string }} />
+        {(
+          [
+            ["Practice Streak", "7 days", "Personal best!", Flame, "#e65e48"],
+            ["Completed Today", "2 / 3", "1 remaining", Check, "#a8c764"],
+            ["Weekly Minutes", "48 min", "+12 min vs last week", Timer, "#d4874b"],
+            ["Mind Score", "82", "+4 this week", Brain, "#a8c764"],
+          ] as Array<[string, string, string, LucideIcon, string]>
+        ).map(([label, value, sub, Icon, color], index) => (
+          <div key={label} className={`glass-card hover-lift anim-up delay-${index + 1} rounded-md p-6`}>
+            <Icon className="size-7 transition-transform duration-500 hover:scale-110" style={{ color }} />
             <p className="mt-5 text-sm text-[#aaa296]">{label}</p>
             <p className="metric-value mt-3 font-[Georgia] text-4xl text-[#f1e6d6]">{value}</p>
             <p className="mt-3 text-xs text-[#9ab65d]">{sub}</p>

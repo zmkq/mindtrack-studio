@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Brain, Check, CircleDot, Eye, Flame, Leaf, Play, Target, Timer, Zap } from "lucide-react"
+import { ArrowRight, Brain, Check, CircleDot, Eye, Flame, Leaf, Play, Target, Timer, Zap , type LucideIcon } from "lucide-react"
 import { UserShell } from "@/components/user-shell"
 
 const practices = [
@@ -34,13 +34,13 @@ export function UserFocusPage() {
       </section>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
-        {[
+        {([
           ["Focus Sessions", "23", "This month", Target, "#d4874b"],
           ["Total Deep Time", "9.5 hrs", "+2.1 hrs vs last month", Timer, "#a8c764"],
           ["Distraction Score", "Low", "Improving steadily", Eye, "#a8c764"],
-        ].map(([label, value, sub, Icon, color], i) => (
-          <div key={label as string} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
-            <Icon className="size-7" style={{ color: color as string }} />
+        ] as Array<[string, string, string, LucideIcon, string]>).map(([label, value, sub, Icon, color], i) => (
+          <div key={label} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
+            <Icon className="size-7" style={{ color }} />
             <p className="mt-5 text-sm text-[#aaa296]">{label}</p>
             <p className="metric-value mt-3 font-[Georgia] text-4xl text-[#f1e6d6]">{value}</p>
             <p className="mt-3 text-xs text-[#9ab65d]">{sub}</p>

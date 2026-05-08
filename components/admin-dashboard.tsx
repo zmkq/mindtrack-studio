@@ -252,6 +252,13 @@ function ContentSnapshot() {
 }
 
 function EngagementSnapshot() {
+  const engagements: Array<[string, string, string, LucideIcon, string]> = [
+    ["Views this week", "4,218", "+14%", TrendingUp, "#e65e48"],
+    ["Completions", "1,847", "+22%", Target, "#a8c764"],
+    ["Feedback entries", "312", "+8%", BookOpen, "#d4874b"],
+    ["Helpful rate", "84%", "+3pp", Heart, "#a8c764"],
+  ]
+
   return (
     <section className="anim-up delay-10 glass-card hover-lift rounded-md p-7">
       <div className="flex items-center justify-between">
@@ -261,14 +268,9 @@ function EngagementSnapshot() {
         </Link>
       </div>
       <div className="mt-6 space-y-5">
-        {[
-          ["Views this week", "4,218", "+14%", TrendingUp, "#e65e48"],
-          ["Completions", "1,847", "+22%", Target, "#a8c764"],
-          ["Feedback entries", "312", "+8%", BookOpen, "#d4874b"],
-          ["Helpful rate", "84%", "+3pp", Heart, "#a8c764"],
-        ].map(([label, value, delta, Icon, color]) => (
-          <div key={label as string} className="group flex items-center gap-4">
-            <Icon className="size-5 shrink-0 transition-transform duration-300 group-hover:scale-125" style={{ color: color as string }} />
+        {engagements.map(([label, value, delta, Icon, color]) => (
+          <div key={label} className="group flex items-center gap-4">
+            <Icon className="size-5 shrink-0 transition-transform duration-300 group-hover:scale-125" style={{ color }} />
             <div className="flex-1">
               <p className="text-xs text-[#8f887d]">{label}</p>
               <p className="mt-1 text-sm text-[#d8cebd]">{value}</p>

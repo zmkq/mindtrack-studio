@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Bell, Check, Heart, Leaf, MessageCircle, Send, Sparkles, Star } from "lucide-react"
+import { ArrowRight, Bell, Check, Heart, Leaf, MessageCircle, Send, Sparkles, Star , type LucideIcon } from "lucide-react"
 import { UserShell } from "@/components/user-shell"
 import { Input } from "@/components/ui/input"
 
@@ -37,13 +37,13 @@ export function UserMessagesPage() {
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-3">
-        {[
+        {([
           ["Unread", "2", "New messages", MessageCircle, "#e65e48"],
           ["This Week", "4", "Messages received", Bell, "#d4874b"],
           ["Achievements", "3", "Earned this month", Star, "#a8c764"],
-        ].map(([label, value, sub, Icon, color], i) => (
-          <div key={label as string} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
-            <Icon className="size-7" style={{ color: color as string }} />
+        ] as Array<[string, string, string, LucideIcon, string]>).map(([label, value, sub, Icon, color], i) => (
+          <div key={label} className={`glass-card hover-lift anim-up delay-${i + 1} rounded-md p-6`}>
+            <Icon className="size-7" style={{ color }} />
             <p className="mt-5 text-sm text-[#aaa296]">{label}</p>
             <p className="metric-value mt-3 font-[Georgia] text-4xl text-[#f1e6d6]">{value}</p>
             <p className="mt-3 text-xs text-[#9ab65d]">{sub}</p>
