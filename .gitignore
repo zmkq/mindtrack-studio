@@ -16,6 +16,7 @@ bun.lock
 
 # local sqlite databases
 *.db
+!prisma/dev.db
 *.db-journal
 
 # next.js
