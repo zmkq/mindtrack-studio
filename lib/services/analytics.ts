@@ -1,6 +1,11 @@
 import { getDb } from "@/lib/db"
+import { getMockAnalytics, shouldUseMockData } from "@/lib/mock-store"
 
 export async function getAnalytics() {
+  if (shouldUseMockData()) {
+    return getMockAnalytics()
+  }
+
   const db = getDb()
   const [cards, interactions, feedbackCount] = await Promise.all([
     db.contentCard.findMany(),

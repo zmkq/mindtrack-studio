@@ -1,6 +1,17 @@
 import { getDb } from "@/lib/db"
 import { AppError } from "@/lib/errors"
 import {
+  countMockMetrics,
+  createMockContentCard,
+  deleteMockContentCard,
+  getMockContentCard,
+  getMockContentCardBySlug,
+  listMockContentCards,
+  shouldUseMockData,
+  updateMockContentCard,
+  type MockContentCard,
+} from "@/lib/mock-store"
+import {
   contentCardInputSchema,
   contentCardUpdateSchema,
   contentQuerySchema,
@@ -13,6 +24,7 @@ type ContentRecord = Awaited<ReturnType<typeof getDb>>["contentCard"] extends {
 }
   ? T
   : never
+type ContentRecordLike = ContentRecord | MockContentCard
 
 export type ContentCardDto = {
   id: string
@@ -52,7 +64,7 @@ function parseSteps(value: string) {
 }
 
 function toDto(
-  card: ContentRecord,
+  card: ContentRecordLike,
   metrics: Record<string, Record<string, number>> = {}
 ): ContentCardDto {
   const counts = metrics[card.id] ?? {}
@@ -78,6 +90,10 @@ function toDto(
 async function getMetrics(contentCardIds: string[]) {
   if (contentCardIds.length === 0) {
     return {}
+  }
+
+  if (shouldUseMockData()) {
+    return countMockMetrics(contentCardIds)
   }
 
   const db = getDb()
@@ -113,6 +129,13 @@ async function uniqueSlug(title: string, currentId?: string) {
 
 export async function listContentCards(input: unknown = {}) {
   const query = contentQuerySchema.parse(input)
+
+  if (shouldUseMockData()) {
+    const cards = listMockContentCards(query)
+    const metrics = await getMetrics(cards.map((card) => card.id))
+    return cards.map((card) => toDto(card, metrics))
+  }
+
   const db = getDb()
   const where = {
     ...(query.admin ? {} : { status: "published" }),
@@ -139,6 +162,12 @@ export async function listContentCards(input: unknown = {}) {
 }
 
 export async function getContentCard(id: string, options: { admin?: boolean } = {}) {
+  if (shouldUseMockData()) {
+    const card = getMockContentCard(id, options)
+    const metrics = await getMetrics([card.id])
+    return toDto(card, metrics)
+  }
+
   const db = getDb()
   const card = await db.contentCard.findUnique({ where: { id } })
 
@@ -151,6 +180,12 @@ export async function getContentCard(id: string, options: { admin?: boolean } = 
 }
 
 export async function getContentCardBySlug(slug: string) {
+  if (shouldUseMockData()) {
+    const card = getMockContentCardBySlug(slug)
+    const metrics = await getMetrics([card.id])
+    return toDto(card, metrics)
+  }
+
   const db = getDb()
   const card = await db.contentCard.findUnique({ where: { slug } })
 
@@ -164,6 +199,11 @@ export async function getContentCardBySlug(slug: string) {
 
 export async function createContentCard(input: ContentCardInput) {
   const data = contentCardInputSchema.parse(input)
+
+  if (shouldUseMockData()) {
+    return toDto(createMockContentCard(data))
+  }
+
   const db = getDb()
   const card = await db.contentCard.create({
     data: {
@@ -178,6 +218,13 @@ export async function createContentCard(input: ContentCardInput) {
 
 export async function updateContentCard(id: string, input: ContentCardUpdate) {
   const data = contentCardUpdateSchema.parse(input)
+
+  if (shouldUseMockData()) {
+    const card = updateMockContentCard(id, data)
+    const metrics = await getMetrics([card.id])
+    return toDto(card, metrics)
+  }
+
   const db = getDb()
   const existing = await db.contentCard.findUnique({ where: { id } })
 
@@ -200,6 +247,10 @@ export async function updateContentCard(id: string, input: ContentCardUpdate) {
 }
 
 export async function deleteContentCard(id: string) {
+  if (shouldUseMockData()) {
+    return deleteMockContentCard(id)
+  }
+
   const db = getDb()
   await getContentCard(id, { admin: true })
   await db.contentCard.delete({ where: { id } })

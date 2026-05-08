@@ -1,6 +1,14 @@
 import { getDb } from "@/lib/db"
 import { AppError } from "@/lib/errors"
 import {
+  createMockTicket,
+  deleteMockTicket,
+  getMockTicketTitle,
+  listMockTickets,
+  shouldUseMockData,
+  updateMockTicket,
+} from "@/lib/mock-store"
+import {
   bugTicketInputSchema,
   bugTicketUpdateSchema,
   qaQuerySchema,
@@ -24,6 +32,22 @@ function toTicketDto(ticket: Awaited<ReturnType<typeof getTicketRecord>>) {
   }
 }
 
+function toMockTicketDto(ticket: ReturnType<typeof listMockTickets>[number]) {
+  return {
+    id: ticket.id,
+    title: ticket.title,
+    description: ticket.description,
+    severity: ticket.severity,
+    status: ticket.status,
+    relatedPage: ticket.relatedPage,
+    githubIssueUrl: ticket.githubIssueUrl ?? null,
+    contentCardId: ticket.contentCardId ?? null,
+    contentTitle: getMockTicketTitle(ticket.contentCardId),
+    createdAt: ticket.createdAt.toISOString(),
+    updatedAt: ticket.updatedAt.toISOString(),
+  }
+}
+
 async function getTicketRecord(id: string) {
   const db = getDb()
   const ticket = await db.bugTicket.findUnique({
@@ -40,6 +64,11 @@ async function getTicketRecord(id: string) {
 
 export async function listTickets(input: unknown = {}) {
   const query = qaQuerySchema.parse(input)
+
+  if (shouldUseMockData()) {
+    return listMockTickets(query).map(toMockTicketDto)
+  }
+
   const db = getDb()
   const tickets = await db.bugTicket.findMany({
     where: {
@@ -55,6 +84,11 @@ export async function listTickets(input: unknown = {}) {
 
 export async function createTicket(input: BugTicketInput) {
   const data = bugTicketInputSchema.parse(input)
+
+  if (shouldUseMockData()) {
+    return toMockTicketDto(createMockTicket(data))
+  }
+
   const db = getDb()
 
   const ticket = await db.bugTicket.create({
@@ -67,6 +101,11 @@ export async function createTicket(input: BugTicketInput) {
 
 export async function updateTicket(id: string, input: BugTicketUpdate) {
   const data = bugTicketUpdateSchema.parse(input)
+
+  if (shouldUseMockData()) {
+    return toMockTicketDto(updateMockTicket(id, data))
+  }
+
   const db = getDb()
   await getTicketRecord(id)
 
@@ -80,6 +119,10 @@ export async function updateTicket(id: string, input: BugTicketUpdate) {
 }
 
 export async function deleteTicket(id: string) {
+  if (shouldUseMockData()) {
+    return deleteMockTicket(id)
+  }
+
   const db = getDb()
   await getTicketRecord(id)
   await db.bugTicket.delete({ where: { id } })

@@ -1,9 +1,24 @@
 import { getDb } from "@/lib/db"
 import { getContentCard } from "@/lib/services/content"
+import { createMockFeedback, shouldUseMockData } from "@/lib/mock-store"
 import { feedbackInputSchema, type FeedbackInput } from "@/lib/schemas"
 
 export async function createFeedback(contentCardId: string, input: FeedbackInput) {
   const data = feedbackInputSchema.parse(input)
+
+  if (shouldUseMockData()) {
+    const feedback = createMockFeedback(contentCardId, data)
+
+    return {
+      id: feedback.id,
+      contentCardId: feedback.contentCardId,
+      message: feedback.message,
+      sentiment: feedback.sentiment,
+      tag: feedback.tag,
+      createdAt: feedback.createdAt.toISOString(),
+    }
+  }
+
   const db = getDb()
 
   await getContentCard(contentCardId)
