@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ContentCard {
+  id                String            @id @default(cuid())
+  title             String
+  slug              String            @unique
+  category          String
+  estimatedMinutes  Int
+  shortDescription  String
+  steps             String
+  status            String            @default("published")
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  interactions      UserInteraction[]
+  feedback          Feedback[]
+  bugTickets        BugTicket[]
+}
+
+model UserInteraction {
+  id            String      @id @default(cuid())
+  userId        String      @default("demo-user")
+  type          String
+  contentCardId String
+  createdAt     DateTime    @default(now())
+  contentCard   ContentCard @relation(fields: [contentCardId], references: [id], onDelete: Cascade)
+
+  @@index([contentCardId, type])
+  @@index([userId, contentCardId, type])
+}
+
+model Feedback {
+  id            String      @id @default(cuid())
+  contentCardId String
+  message       String
+  sentiment     String      @default("neutral")
+  tag           String?
+  createdAt     DateTime    @default(now())
+  contentCard   ContentCard @relation(fields: [contentCardId], references: [id], onDelete: Cascade)
+
+  @@index([contentCardId])
+}
+
+model BugTicket {
+  id             String       @id @default(cuid())
+  title          String
+  description    String
+  severity       String       @default("medium")
+  status         String       @default("open")
+  relatedPage    String
+  githubIssueUrl String?
+  contentCardId  String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  contentCard    ContentCard? @relation(fields: [contentCardId], references: [id], onDelete: SetNull)
+
+  @@index([status, severity])
+  @@index([contentCardId])
+}

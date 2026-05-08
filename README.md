@@ -1,36 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="MindTrack Studio Hero" style="border-radius: 12px; width: 100%; object-fit: cover; height: 350px; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);">
+</div>
 
-## Getting Started
+<br>
 
-First, run the development server:
+<h1 align="center" style="font-size: 3.5rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 0;">MindTrack Studio</h1>
 
+<p align="center" style="font-size: 1.25rem; color: #a1a1aa; font-weight: 300; margin-top: 10px;">
+  <em>A state-of-the-art, lightweight psychology content platform.</em><br>
+  Built with precision, elegant architecture, and a museum-quality aesthetic.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white" alt="Prisma" />
+  <img src="https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=bun&logoColor=white" alt="Bun" />
+</p>
+
+<br>
+
+## ✧ About The Studio
+
+**MindTrack Studio** is a full-stack Next.js open-source platform tailored for modern psychology content, providing an ecosystem for mental wellness tracking, robust administrative workflows, and engagement analytics. 
+
+The architecture combines an elegant React & TSX frontend with Node.js route handlers and Prisma-backed data models.
+
+> **Disclaimer:** The demo content is purely educational and product-oriented. It does not provide therapy, diagnosis, crisis support, or medical advice.
+
+---
+
+## ✦ Core Features
+
+MindTrack is divided into sleek user-facing experiences and powerful administrative interfaces.
+
+### 👤 User Experience
+- **Library (`/app`):** User-facing micro-exercise library tailored for mental wellness.
+- **Reflection Helper (`/app/reflection`):** A rule-based reflection workflow for active tracking and mindfulness.
+
+### 🛡️ Administrative Powerhouse
+- **Content CMS (`/admin/content`):** A beautiful administrative panel for curating psychology micro-exercises.
+- **Analytics (`/admin/analytics`):** Real-time engagement analytics dashboards visualized with Recharts.
+- **QA & Tracker (`/admin/qa`):** Integrated QA and bug tracker with severity and status tagging.
+
+### ⚙️ Technical Architecture
+- **Auth:** Cookie-based local role switcher with AWS Cognito integration architecture.
+- **Data:** Prisma ORM backed by SQLite (local development) with seeded, realistic psychology demo data.
+- **UI System:** shadcn/Radix UI primitives wrapped in a custom Tailwind CSS dark-mode aesthetic.
+
+---
+
+## ⚡ Quick Start
+
+Experience the studio locally in just a few commands.
+
+### 1. Install Dependencies
+Fast, deterministic installs powered by Bun:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Initialize the Ecosystem
+Generate the Prisma client, migrate the SQLite schema, and seed the interactive demo data:
+```bash
+bun run setup
+```
+*(Alternatively, run manually: `bun run db:generate`, `bun run db:migrate`, `bun run db:seed`)*
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Launch the Studio
+Fire up the local development server:
+```bash
+bun run dev
+```
+Explore the studio at [http://localhost:3000](http://localhost:3000).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📂 Architecture & Structure
 
-To learn more about Next.js, take a look at the following resources:
+A high-end platform demands an immaculate codebase structure.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Directory | Purpose |
+| :--- | :--- |
+| `app/` | Next.js App Router pages and Node.js API route handlers |
+| `components/` | Thin client islands and shadcn UI primitives |
+| `lib/services/` | Core business logic (content, analytics, QA, reflection) |
+| `lib/schemas.ts` | Shared Zod validation for rock-solid type safety |
+| `prisma/` | Data model, migrations, and realistic seed sequences |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🌌 Future Horizons
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MindTrack is constantly evolving. The roadmap includes:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] **AWS Cognito Integration:** Replace local role cookies with robust JWT sessions.
+- [ ] **GitHub API Sync:** Real-time issue tracking sync for the QA dashboard.
+- [ ] **Notion API Connection:** Streamlined editorial review and content planning.
+- [ ] **AI-Powered Reflection:** Upgrade the rule-based helper to an LLM workflow with safety guardrails.
+- [ ] **Production DB:** Seamless transition from SQLite to Postgres.
+- [ ] **CI/CD:** Automated testing and integration pipelines via GitHub Actions.
+
+<br>
+
+<div align="center">
+  <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop" alt="MindTrack Studio Footer" style="border-radius: 8px; width: 100%; object-fit: cover; height: 150px; opacity: 0.8; margin-bottom: 20px;">
+  <p style="color: #a1a1aa; font-size: 0.9rem;">
+    Designed and built with passion.<br>
+    © 2026 MO.
+  </p>
+</div>
